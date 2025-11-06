@@ -16,16 +16,21 @@ A professional Python tool for generating customizable word clouds from CSV text
 
 ```
 words_cloud/
-├── config.yaml              # Configuration file
-├── main.py                  # Main program
-├── README.md                # Documentation
-├── data/                    # Input data directory
-│   ├── input.csv           # Input CSV file
-│   └── stopwords.txt       # Optional stopwords file
-└── output/                  # Output directory
-    ├── wordcloud.png       # Generated word cloud image
-    ├── segmented_words.txt # Segmented words list
-    └── word_counts.csv     # Word frequency statistics
+├── config.yaml                        # Configuration file
+├── main.py                            # Main program
+├── README.md                          # Documentation
+├── requirements.txt                   # Python dependencies
+├── .gitignore                         # Git ignore rules
+├── data/                              # Input data directory
+│   ├── input.csv                     # Your input CSV file (not tracked)
+│   ├── stopwords.txt                 # Optional stopwords file (not tracked)
+│   ├── input.csv.example             # Simple CSV example
+│   ├── input_english.csv.example     # English text example
+│   └── input_multicolumn.csv.example # Multi-column CSV example
+└── output/                            # Output directory (not tracked)
+    ├── wordcloud.png                 # Generated word cloud image
+    ├── segmented_words.txt           # Segmented words list
+    └── word_counts.csv               # Word frequency statistics
 ```
 
 ## Installation
@@ -38,14 +43,66 @@ words_cloud/
 ### Install Dependencies
 
 ```bash
+# Option 1: Install from requirements.txt (recommended)
+pip install -r requirements.txt
+
+# Option 2: Install packages individually
 pip install pandas jieba wordcloud matplotlib pyyaml numpy
 ```
 
 ## Quick Start
 
+### Option A: Start with Example Data (Fastest)
+
+```bash
+# 1. Clone or download this project
+# 2. Install dependencies
+pip install -r requirements.txt
+
+# 3. Copy an example CSV file
+cp data/input.csv.example data/input.csv
+
+# 4. Run the program
+python main.py
+
+# 5. Check your results in the output/ folder!
+```
+
+### Option B: Use Your Own Data
+
 1. **Prepare Your Data**
    
    Place your CSV file in the `data/` folder. The CSV should have a column containing the text you want to analyze (default column name: `title`).
+   
+   **Example CSV formats:**
+   
+   *Simple format (single column):*
+   ```csv
+   title
+   人工智能技术正在改变世界
+   机器学习是人工智能的核心技术
+   深度学习在图像识别领域取得突破
+   ```
+   
+   *Multi-column format:*
+   ```csv
+   id,title,category,date
+   1,人工智能技术正在改变世界,科技,2025-01-15
+   2,机器学习是人工智能的核心技术,AI,2025-01-16
+   3,深度学习在图像识别领域取得突破,AI,2025-01-17
+   ```
+   
+   **Using example files:**
+   ```bash
+   # Chinese example (simple format)
+   cp data/input.csv.example data/input.csv
+   
+   # English example
+   cp data/input_english.csv.example data/input.csv
+   
+   # Multi-column example
+   cp data/input_multicolumn.csv.example data/input.csv
+   ```
 
 2. **Configure Settings**
    
@@ -192,29 +249,78 @@ List of all extracted words (one per line) after filtering.
 - Ensure `font_path` points to a valid font file that supports Chinese
 - Check that the font file path is correct for your operating system
 
-## Examples
+## Example Configurations
 
-### Example 1: Ocean-Themed Word Cloud
+### Example 1: Ocean-Themed Word Cloud 🌊
 
 ```yaml
+width: 1920
+height: 1080
+background_color: '#001a33'
 use_custom_colors: true
 custom_colors:
   - '#003366'
   - '#006699'
   - '#0099CC'
   - '#66FFFF'
-background_color: '#001a33'
+max_words: 200
+min_word_length: 2
 ```
 
-### Example 2: High-Contrast Word Cloud
+### Example 2: High-Contrast Dark Theme 🌙
 
 ```yaml
+width: 1920
+height: 1080
+background_color: black
 use_custom_colors: false
 colormap: RdYlBu_r
-background_color: black
 max_words: 100
 relative_scaling: 0.8
+min_word_length: 2
 ```
+
+### Example 3: Vibrant Rainbow 🌈
+
+```yaml
+width: 2560
+height: 1440
+background_color: white
+use_custom_colors: true
+custom_colors:
+  - '#FF0000'  # Red
+  - '#FF7F00'  # Orange
+  - '#FFFF00'  # Yellow
+  - '#00FF00'  # Green
+  - '#0000FF'  # Blue
+  - '#4B0082'  # Indigo
+  - '#9400D3'  # Violet
+max_words: 300
+relative_scaling: 0.6
+```
+
+### Example 4: Minimalist Professional 💼
+
+```yaml
+width: 1920
+height: 1080
+background_color: '#F5F5F5'
+use_custom_colors: false
+colormap: Blues
+max_words: 150
+relative_scaling: 0.4
+min_word_length: 3
+```
+
+## Provided Example Files
+
+The project includes three example CSV files to help you get started:
+
+1. **`input.csv.example`** - Chinese tech terms (20 rows)
+2. **`input_english.csv.example`** - English tech terms (20 rows)
+3. **`input_multicolumn.csv.example`** - Multi-column format with id, title, category, and date
+
+Simply copy one to `data/input.csv` to try it out!
 
 ## Contributing
 

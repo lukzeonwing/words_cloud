@@ -1,5 +1,7 @@
 # Data and Output Folders
-data/
+data/*
+!data/*.example
+!data/stopwords.txt
 output/
 
 # Python
